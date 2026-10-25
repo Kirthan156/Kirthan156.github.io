@@ -65,6 +65,20 @@
 <script>
 const PROJECTS = [
   {
+    id: "heart-twin", depth: "210 m", tags: ["ml", "web"], metric: "live demo · 6.0 mmHg error",
+    title: "Heart twin",
+    blurb: "A beat-by-beat digital twin of the heart and circulation, driven by a person's own recorded heartbeats, that shows what an arrhythmia does to blood pressure.",
+    stack: ["Python", "NumPy", "numba", "FastAPI", "React", "TypeScript", "Docker"],
+    live: "https://medical-twin.onrender.com/", code: null,
+    body: `<p>A mechanistic model of four chambers, four valves, vessels and the baroreflex, calibrated to each person's blood pressure, heart rate and ejection fraction, then driven by their real beat sequence from PhysioNet ECG records (MIT-BIH Arrhythmia Database, 48 people).</p>
+      <ul><li><b>Arrhythmia what-ifs:</b> shows how VT, AF and PVCs change blood pressure and cardiac output, and what VT ablation, rate control, cardioversion or a beta-blocker would change.</li>
+      <li><b>Validated on real ICU data:</b> predicted the change in mean arterial pressure during 26 real VT runs with arterial lines (PhysioNet/CinC Challenge 2015) with <b>6.0 mmHg</b> average error, leave-one-record-out, against 8.6 for "everyone drops by the average" and 12.5 for "no change". It agreed on whether pressure fell by more than 5 mmHg in 81% of runs.</li>
+      <li><b>Stimuli lab:</b> 46 stimuli from published studies (coffee, a cigarette, standing up, cold water...), 28 with sourced effect sizes fitted to physiology levers and simulated over time on any of the 48 hearts.</li>
+      <li><b>App:</b> an animated anatomical heart where chambers, valves and blood flow move with the simulation, plus the measured ECG, a Wiggers pressure diagram and pressure-volume loops. FastAPI + React, packaged in Docker to run on a free 512 MB Render instance.</li></ul>
+      <p style="margin-top:14px"><b>Try it live:</b> <a href="https://medical-twin.onrender.com/#/twin">explore a real heart</a> · <a href="https://medical-twin.onrender.com/#/stimuli">stimuli lab</a> · <a href="https://medical-twin.onrender.com/#/evidence">evidence</a>. It runs on Render's free tier, so the first visit can take about a minute to wake up.</p>
+      <p style="margin-top:14px">Honest limit: on raw accuracy it roughly ties a simple rate-based regression (6.5 mmHg). Its value is the mechanism and the what-ifs, which a regression can't give.</p>`,
+  },
+  {
     id: "twin-health", depth: "200 m", tags: ["ml", "web"], metric: "R² 0.71 · held-out",
     title: "Prediabetes digital twin",
     blurb: "Finds hidden insulin resistance from a week of wearable data, then simulates 5 years of HbA1c and the smallest plan that cuts diabetes risk.",
@@ -77,19 +91,6 @@ const PROJECTS = [
       <li><b>Plan search:</b> an exhaustive search for the smallest lifestyle change that halves a person's risk.</li>
       <li><b>App:</b> FastAPI backend and a React + TypeScript front end with a clinic dashboard and a live body twin that replays a real sensor day through the organs.</li></ul>
       <p style="margin-top:14px">Every claim ships with its honest limit: with 45 people, the gain from adding the wearable over the full record is not yet statistically proven.</p>`,
-  },
-  {
-    id: "heart-twin", depth: "210 m", tags: ["ml", "web"], metric: "6.0 mmHg · out of sample",
-    title: "Heart twin",
-    blurb: "A beat-by-beat digital twin of the heart and circulation, driven by a person's own recorded heartbeats, that shows what an arrhythmia does to blood pressure.",
-    stack: ["Python", "NumPy", "numba", "FastAPI", "React", "TypeScript", "Docker"],
-    live: null, code: null,
-    body: `<p>A mechanistic model of four chambers, four valves, vessels and the baroreflex, calibrated to each person's blood pressure, heart rate and ejection fraction, then driven by their real beat sequence from PhysioNet ECG records (MIT-BIH Arrhythmia Database, 48 people).</p>
-      <ul><li><b>Arrhythmia what-ifs:</b> shows how VT, AF and PVCs change blood pressure and cardiac output, and what VT ablation, rate control, cardioversion or a beta-blocker would change.</li>
-      <li><b>Validated on real ICU data:</b> predicted the change in mean arterial pressure during 26 real VT runs with arterial lines (PhysioNet/CinC Challenge 2015) with <b>6.0 mmHg</b> average error, leave-one-record-out, against 8.6 for "everyone drops by the average" and 12.5 for "no change". It agreed on whether pressure fell by more than 5 mmHg in 81% of runs.</li>
-      <li><b>Stimuli lab:</b> 46 stimuli from published studies (coffee, a cigarette, standing up, cold water...), 28 with sourced effect sizes fitted to physiology levers and simulated over time on any of the 48 hearts.</li>
-      <li><b>App:</b> an animated anatomical heart where chambers, valves and blood flow move with the simulation, plus the measured ECG, a Wiggers pressure diagram and pressure-volume loops. FastAPI + React, packaged in Docker to run on a free 512 MB Render instance.</li></ul>
-      <p style="margin-top:14px">Honest limit: on raw accuracy it roughly ties a simple rate-based regression (6.5 mmHg). Its value is the mechanism and the what-ifs, which a regression can't give.</p>`,
   },
   {
     id: "motor", no: "SPC-001", depth: "220 m", tags: ["iot", "ml"], metric: "live anomaly detection",
