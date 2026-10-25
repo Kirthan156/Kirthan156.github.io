@@ -1,0 +1,14 @@
+# Render Blueprint: deploys this folder as a free static site (global CDN, no sleeping).
+services:
+  - type: web
+    name: kirthan-portfolio
+    runtime: static
+    buildCommand: echo "Plain HTML/CSS/JS, nothing to build"
+    staticPublishPath: .
+    headers:
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
