@@ -65,6 +65,20 @@
 <script>
 const PROJECTS = [
   {
+    id: "twin-health", depth: "200 m", tags: ["ml", "web"], metric: "R² 0.71 · held-out",
+    title: "Prediabetes digital twin",
+    blurb: "Finds hidden insulin resistance from a week of wearable data, then simulates 5 years of HbA1c and the smallest plan that cuts diabetes risk.",
+    stack: ["Python", "scikit-learn", "SciPy", "FastAPI", "React", "TypeScript"],
+    live: null, code: null,
+    body: `<p>A health digital twin built on CGMacros (PhysioNet): 45 people with about 10 days each of Libre glucose sensor, Fitbit heart rate and logged meals. HbA1c can look normal for years while insulin resistance builds; the twin is built to catch those people.</p>
+      <ul><li><b>Hidden insulin resistance:</b> a ridge model on six sensor features (night glucose, spike per 10 g carbs, recovery time, time above 140, variability, resting heart rate) plus the health record. Leave-one-person-out R² 0.71, against 0.63 for the record alone.</li>
+      <li><b>Personal meal response:</b> predicts the sugar spike for each person's last 30% of meals. 20.9 mg/dL average error on 307 held-out meals, against 26.4 for a meal-only model.</li>
+      <li><b>5-year simulator:</b> a mechanistic insulin-sensitivity × beta-cell model calibrated on published trials, run as 1,000 simulated futures. Checked against India's IDPP-1 trial: metformin benefit 37% predicted vs 41% observed.</li>
+      <li><b>Plan search:</b> an exhaustive search for the smallest lifestyle change that halves a person's risk.</li>
+      <li><b>App:</b> FastAPI backend and a React + TypeScript front end with a clinic dashboard and a live body twin that replays a real sensor day through the organs.</li></ul>
+      <p style="margin-top:14px">Every claim ships with its honest limit: with 45 people, the gain from adding the wearable over the full record is not yet statistically proven.</p>`,
+  },
+  {
     id: "motor", no: "SPC-001", depth: "220 m", tags: ["iot", "ml"], metric: "live anomaly detection",
     title: "Motor predictive maintenance",
     blurb: "ESP32-S3 sensor node → MQTT → anomaly model → live dashboard on PC or phone.",
@@ -144,6 +158,7 @@ const PROJECTS = [
   },
 ];
 
+PROJECTS.forEach((p, i) => { p.no = "SPC-" + String(i + 1).padStart(3, "0"); });
 const LABEL = { ml: "Machine learning", iot: "IoT & streaming", genai: "GenAI", web: "Full stack" };
 const grid = document.getElementById("specimens");
 grid.innerHTML = PROJECTS.map((p, i) => `
@@ -155,7 +170,7 @@ grid.innerHTML = PROJECTS.map((p, i) => `
     <div class="tag-row">${p.stack.map(s => `<span class="tag">${s}</span>`).join("")}</div>
     <div class="foot">
       <button class="more" data-id="${p.id}">Open specimen →</button>
-      ${p.code ? `<a href="${p.code}">Code</a>` : `<span class="badge-private">proprietary</span>`}
+      ${p.live ? `<a href="${p.live}">Live demo</a>` : p.code ? `<a href="${p.code}">Code</a>` : `<span class="badge-private">${p.private ? "proprietary" : "demo soon"}</span>`}
     </div>
   </article>`).join("");
 
@@ -178,7 +193,7 @@ function open(id) {
     <h2 id="sheet-title">${p.title}</h2>
     ${p.body}
     <div class="tag-row" style="margin-top:22px">${p.stack.map(s => `<span class="tag">${s}</span>`).join("")}</div>
-    ${p.code ? `<div class="cta" style="margin-top:26px"><a class="btn primary" href="${p.code}">View code on GitHub</a></div>` : ""}`;
+    ${p.live || p.code ? `<div class="cta" style="margin-top:26px">${p.live ? `<a class="btn primary" href="${p.live}">Open live demo</a>` : ""}${p.code ? `<a class="btn${p.live ? "" : " primary"}" href="${p.code}">View code on GitHub</a>` : ""}</div>` : ""}`;
   sheet.showModal();
   inner.scrollTop = 0;
   history.replaceState(null, "", "#" + id);

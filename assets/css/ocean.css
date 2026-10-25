@@ -241,6 +241,7 @@ footer a { color: var(--muted); }
 .filter[aria-pressed="true"] { color: #022620; background: var(--glow); border-color: var(--glow); }
 .specimen { display: flex; flex-direction: column; transition: opacity .4s, transform .4s, border-color .35s; }
 .specimen.hide { display: none; }
+.specimen .metric { align-self: flex-start; }
 .specimen .foot { margin-top: auto; padding-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; }
 .specimen button.more { background: none; border: 0; color: var(--glow); font: 500 14px var(--sans); cursor: pointer; padding: 0; }
 .specimen button.more:hover { text-decoration: underline; text-underline-offset: 3px; }
