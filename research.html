@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Research · Kirthan Gada</title>
+<meta name="description" content="Metaheuristic-based feature selection for induction motor fault diagnosis: 4 optimisers × 3 gradient-boosting classifiers on 2.1M sensor samples.">
+<meta name="theme-color" content="#020c18">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23020c18'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%235eead4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/ocean.css">
+</head>
+<body data-depth-start="1000" data-depth-end="4000">
+<canvas id="ocean" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="./"><span class="dot"></span>kirthan.gada</a>
+  <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span></button>
+  <ul>
+    <li><a href="./">Dive<small>0–4000 m</small></a></li>
+    <li><a href="about.html">About<small>0–200 m</small></a></li>
+    <li><a href="projects.html">Projects<small>200–1000 m</small></a></li>
+    <li><a href="research.html" aria-current="page">Research<small>1000–4000 m</small></a></li>
+  </ul>
+</header>
+
+<main>
+  <section class="hero" style="min-height:auto;padding-bottom:40px">
+    <div class="wrap">
+      <p class="zone-label reveal">1,000 m · Midnight zone · Research</p>
+      <h1 class="page-title reveal d1" style="max-width:15ch">Finding the <em>few signals</em> that matter</h1>
+      <p class="lede reveal d2">Metaheuristic-Based Feature Selection for Induction Motor Fault Diagnosis: A Comparative Study. Accepted for presentation at an international conference.</p>
+      <p class="reveal d2 muted" style="margin-top:14px;font-size:14px">R. Vasavi, G. Kirthan Vivek, M. Aakash, M. Vashist Reddy, N. Venkata Shashank · VNR VJIET, Hyderabad</p>
+      <div class="cta reveal d3">
+        <a class="btn primary" href="https://github.com/Kirthan156/induction-motor-fault-diagnosis/blob/main/paper/metaheuristic-feature-selection-induction-motor-fault-diagnosis.pdf">Read the paper (PDF)</a>
+        <a class="btn" href="https://github.com/Kirthan156/induction-motor-fault-diagnosis">Repository</a>
+      </div>
+      <div class="kpis">
+        <div class="panel kpi reveal"><b data-count="2.1" data-suffix="M">0</b><span>sensor samples, 5 balanced fault classes</span></div>
+        <div class="panel kpi reveal d1"><b data-count="82.7" data-suffix="%">0</b><span>average feature reduction (26 → 4.5)</span></div>
+        <div class="panel kpi reveal d2"><b data-count="0.999843">0</b><span>best macro F1 (EO + XGBoost, 5 features)</span></div>
+        <div class="panel kpi reveal d3"><b data-count="99.92" data-suffix="%">0</b><span>of baseline F1 kept in the worst case</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:60px">
+    <div class="wrap">
+      <p class="zone-label reveal">The question</p>
+      <h2 class="title reveal d1" style="max-width:20ch">A 110 kW motor has 26 signals. <em>How many do you need</em> to tell a fault?</h2>
+      <p class="lede reveal d2" style="margin-top:22px">Fewer sensors means cheaper deployment and faster models. The study compares four nature-inspired optimisers for wrapper feature selection (Whale Optimization, Harris Hawks, Equilibrium Optimizer, Multi-Verse Optimizer), each paired with LightGBM, XGBoost and CatBoost: 12 combinations, on healthy, bearing, rotor bar, stator winding and unbalance conditions.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <p class="zone-label reveal">Method</p>
+      <div class="pipeline">
+        <article class="panel card reveal"><h3>Engineer features</h3><p>22 raw d-q frame signals plus 6 physics-derived ones: flux magnitudes, power per RPM, power × torque, stator voltage magnitude.</p></article>
+        <article class="panel card reveal d1"><h3>Rank with a baseline</h3><p>Train full-feature models (macro F1 up to 0.999924) and keep the 15 most important features as the search space.</p></article>
+        <article class="panel card reveal d2"><h3>Search on 5%</h3><p>Run each optimiser on a stratified 5% subset (105k samples), 10 agents × 20 iterations, with a sparsity penalty.</p></article>
+        <article class="panel card reveal d3"><h3>Retrain on all</h3><p>Retrain each selected subset on the full 1.68M training rows and test on 420k held-out samples.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <p class="zone-label reveal">Results explorer</p>
+      <div class="panel lab reveal d1">
+        <div class="lab-head">
+          <h3>12 optimiser × classifier combinations</h3>
+          <div class="toggle" role="group" aria-label="Metric">
+            <button data-m="feat" aria-pressed="true">Features kept</button>
+            <button data-m="f1" aria-pressed="false">Macro F1</button>
+          </div>
+        </div>
+        <div class="heat" id="heat"></div>
+        <p class="note" id="note">Hover or tap a cell. Darker water means fewer features kept.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <p class="zone-label reveal">Findings</p>
+      <div class="grid three">
+        <article class="panel card reveal"><span class="metric">7 of 12</span><h3 style="margin-top:14px">Rotor flux q is the key signal</h3><p>It was selected most often across all classifiers, followed by RPM (6 of 12) and rotor flux d (5 of 12).</p></article>
+        <article class="panel card reveal d1"><span class="metric">8 of 12</span><h3 style="margin-top:14px">Physics features pay off</h3><p>Engineered features such as rotor flux magnitude and power × torque appeared in 8 combinations.</p></article>
+        <article class="panel card reveal d2"><span class="metric">HHO: always 4</span><h3 style="margin-top:14px">Harris Hawks is the most consistent</h3><p>HHO picked exactly 4 features for every classifier. EO + LightGBM got down to 3 features at macro F1 0.999688.</p></article>
+      </div>
+      <p class="reveal muted" style="margin-top:26px;font-size:15px;max-width:70ch">Remaining weakness: early bearing degradation looks electromagnetically similar to a healthy motor in the d-q frame, so most leftover errors sit between those two classes.</p>
+    </div>
+  </section>
+
+  <section class="abyss" style="padding-top:40px">
+    <div class="wrap">
+      <h2 class="title reveal">Want to talk about <em>this work?</em></h2>
+      <div class="cta reveal d1">
+        <a class="btn primary" href="mailto:kirthan156@gmail.com">Email me</a>
+        <a class="btn" href="projects.html">Back up to projects</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Kirthan Vivek Gada</span>
+    <span>Data from Tables V and VI of the paper.</span>
+  </div>
+</footer>
+
+<script>
+const OPT = ["WOA", "HHO", "EO", "MVO"], CLS = ["LightGBM", "XGBoost", "CatBoost"];
+const FEAT = [[4, 4, 5], [4, 4, 4], [3, 5, 7], [4, 5, 5]];
+const F1 = [[0.999631, 0.999265, 0.999748], [0.999731, 0.999686, 0.999660], [0.999688, 0.999843, 0.999807], [0.999783, 0.999841, 0.999636]];
+const BASE = [0.999924, 0.999905, 0.999874];
+const NAMES = { WOA: "Whale Optimization", HHO: "Harris Hawks", EO: "Equilibrium Optimizer", MVO: "Multi-Verse Optimizer" };
+const heat = document.getElementById("heat"), note = document.getElementById("note");
+let metric = "feat";
+
+function colour(t) { // t in 0..1, 0 = deep, 1 = bright bioluminescent
+  const a = [4, 30, 48], b = [46, 196, 176];
+  const c = a.map((v, i) => Math.round(v + (b[i] - v) * t));
+  return `rgba(${c[0]},${c[1]},${c[2]},${0.35 + 0.55 * t})`;
+}
+function render() {
+  let html = `<div></div>` + CLS.map(c => `<div class="h col">${c}</div>`).join("");
+  const vals = metric === "feat" ? FEAT.flat() : F1.flat();
+  const lo = Math.min(...vals), hi = Math.max(...vals);
+  OPT.forEach((o, i) => {
+    html += `<div class="h">${o}</div>`;
+    CLS.forEach((c, j) => {
+      const v = metric === "feat" ? FEAT[i][j] : F1[i][j];
+      const t = (v - lo) / (hi - lo || 1);
+      const best = metric === "feat" ? v === lo : v === hi;
+      const label = metric === "feat" ? v : v.toFixed(6);
+      html += `<div class="cell${best ? " best" : ""}" tabindex="0" data-i="${i}" data-j="${j}" style="background:${colour(t)}">${label}</div>`;
+    });
+  });
+  heat.innerHTML = html;
+}
+function describe(i, j) {
+  const o = OPT[i], c = CLS[j], kept = FEAT[i][j], f1 = F1[i][j];
+  const pct = (f1 / BASE[j] * 100).toFixed(3);
+  note.innerHTML = `<b style="color:var(--ink)">${NAMES[o]} + ${c}</b>: kept <b style="color:var(--glow)">${kept} of 26</b> features (${Math.round((1 - kept / 26) * 100)}% fewer), macro F1 <b style="color:var(--glow)">${f1.toFixed(6)}</b>, which is ${pct}% of the ${c} baseline.`;
+}
+heat.addEventListener("pointerover", e => { const c = e.target.closest(".cell"); if (c) describe(+c.dataset.i, +c.dataset.j); });
+heat.addEventListener("focusin", e => { const c = e.target.closest(".cell"); if (c) describe(+c.dataset.i, +c.dataset.j); });
+heat.addEventListener("click", e => { const c = e.target.closest(".cell"); if (c) describe(+c.dataset.i, +c.dataset.j); });
+document.querySelectorAll(".toggle button").forEach(b => b.addEventListener("click", () => {
+  metric = b.dataset.m;
+  document.querySelectorAll(".toggle button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  note.textContent = metric === "feat" ? "Hover or tap a cell. Brighter means more features kept; the glowing cell kept the fewest." : "Hover or tap a cell. Brighter means higher macro F1; the glowing cell is the best model.";
+  render();
+}));
+render();
+</script>
+<script src="assets/js/ocean.js"></script>
+</body>
+</html>

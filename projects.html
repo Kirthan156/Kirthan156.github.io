@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projects · Kirthan Gada</title>
+<meta name="description" content="Projects by Kirthan Vivek Gada: predictive maintenance, digital twins, computer vision, GenAI and full-stack ML apps.">
+<meta name="theme-color" content="#020c18">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23020c18'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%235eead4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/ocean.css">
+</head>
+<body data-depth-start="200" data-depth-end="1000">
+<canvas id="ocean" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="./"><span class="dot"></span>kirthan.gada</a>
+  <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span></button>
+  <ul>
+    <li><a href="./">Dive<small>0–4000 m</small></a></li>
+    <li><a href="about.html">About<small>0–200 m</small></a></li>
+    <li><a href="projects.html" aria-current="page">Projects<small>200–1000 m</small></a></li>
+    <li><a href="research.html">Research<small>1000–4000 m</small></a></li>
+  </ul>
+</header>
+
+<main>
+  <section class="hero" style="min-height:auto;padding-bottom:20px">
+    <div class="wrap">
+      <p class="zone-label reveal">200 m · Twilight zone</p>
+      <h1 class="page-title reveal d1">Field <em>specimens</em></h1>
+      <p class="lede reveal d2">Things I've built, from sensor hardware to deployed models. Filter by habitat, and open any specimen for the full write-up.</p>
+      <div class="filters reveal d3" role="group" aria-label="Filter projects">
+        <button class="filter" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter" data-filter="ml" aria-pressed="false">Machine learning</button>
+        <button class="filter" data-filter="iot" aria-pressed="false">IoT &amp; streaming</button>
+        <button class="filter" data-filter="genai" aria-pressed="false">GenAI</button>
+        <button class="filter" data-filter="web" aria-pressed="false">Full stack</button>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:10px">
+    <div class="wrap">
+      <div class="grid three" id="specimens"></div>
+    </div>
+  </section>
+</main>
+
+<dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+  <button class="close" aria-label="Close">×</button>
+  <div class="inner"></div>
+</dialog>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Kirthan Vivek Gada</span>
+    <span><a href="research.html">Keep descending: research →</a></span>
+  </div>
+</footer>
+
+<script>
+const PROJECTS = [
+  {
+    id: "motor", no: "SPC-001", depth: "220 m", tags: ["iot", "ml"], metric: "live anomaly detection",
+    title: "Motor predictive maintenance",
+    blurb: "ESP32-S3 sensor node → MQTT → anomaly model → live dashboard on PC or phone.",
+    stack: ["ESP32-S3", "MQTT", "Python", "WebSocket", "scikit-learn"],
+    code: "https://github.com/Kirthan156/Major-motor-predictive-maintainence",
+    body: `<p>Live condition monitoring for a 230 V, 60 W motor. The sensor node sends vibration, current, speed, temperature and sound readings every 2 seconds.</p>
+      <ul><li>Firmware samples vibration in 1 kHz bursts plus slow sensors and publishes to an MQTT topic.</li>
+      <li>A Python service turns each reading into features and scores it with an anomaly model.</li>
+      <li>The web dashboard streams readings over WebSocket and names the most unusual signals when the alarm fires.</li>
+      <li>A built-in dummy motor sends messages in the firmware's exact format, so faults (imbalance, loose blade, blocked airflow) can be injected for demos before real data exists.</li></ul>
+      <pre>ESP32-S3 + sensors ──MQTT──▶ Mosquitto ──▶ server.py ──WebSocket──▶ browser
+                                     └──▶ recorder ──▶ train ──▶ models/</pre>`,
+  },
+  {
+    id: "twin", no: "SPC-002", depth: "340 m", tags: ["iot", "ml"], metric: "internship · Artha Solutions",
+    title: "Industrial digital twin",
+    blurb: "A Unity 3D twin of a cement roller press, driven by live sensor data streamed from the edge.",
+    stack: ["Unity 3D", "OPC-UA", "Kafka", "InfluxDB", "XGBoost"],
+    private: true,
+    body: `<p>Built during my Software Development internship at Artha Solutions (Jun to Aug 2025).</p>
+      <ul><li>Built a digital twin of an industrial cement roller press in Unity 3D from CAD assets, driven by live sensor data.</li>
+      <li>Built an edge-to-cloud streaming pipeline (OPC-UA → Kafka → InfluxDB) for real-time monitoring and visualisation.</li>
+      <li>Trained XGBoost and Random Forest models on press sensor data for prediction and fault classification, using genetic-algorithm feature selection.</li></ul>
+      <p style="margin-top:14px">The code belongs to the company, so there's no public repository.</p>`,
+  },
+  {
+    id: "rag", no: "SPC-003", depth: "410 m", tags: ["genai"], metric: "internship · Artha Solutions",
+    title: "RAG assistant for operational data",
+    blurb: "A LangChain and LangGraph assistant that routes questions and generates SQL over plant data.",
+    stack: ["LangChain", "LangGraph", "RAG", "SQL"],
+    private: true,
+    body: `<p>Contributed to a retrieval-augmented assistant at Artha Solutions that routes user questions and generates SQL queries.</p>
+      <p style="margin-top:14px">The code belongs to the company, so there's no public repository.</p>`,
+  },
+  {
+    id: "calai", no: "SPC-004", depth: "560 m", tags: ["ml", "web"], metric: "87% top-1",
+    title: "AI food calorie estimator",
+    blurb: "Photo in, dish plus calories, protein, carbs and fat out. ConvNeXt-Tiny fine-tuned on Food-101.",
+    stack: ["PyTorch", "ConvNeXt", "Flask", "React"],
+    code: "https://github.com/Kirthan156/Cal_AI",
+    body: `<p>Built during my Data Science internship at Prasunet (Tech Bharat Global Impact program).</p>
+      <ul><li>Fine-tuned ConvNeXt-Tiny in PyTorch on Food-101 (101 classes, 101k images) to 87% top-1 accuracy on a held-out test split.</li>
+      <li>Mapped each predicted dish to per-serving calories and macronutrients through JSON nutrition metadata, along with ingredients and a recipe.</li>
+      <li>Served predictions through a Flask REST API with a React front end.</li></ul>`,
+  },
+  {
+    id: "uec", no: "SPC-005", depth: "640 m", tags: ["ml"], metric: "100 classes",
+    title: "Japanese food recogniser",
+    blurb: "EfficientNet-B0 trained on UEC-100 with calorie and nutrient charts, as a Streamlit app.",
+    stack: ["PyTorch", "EfficientNet-B0", "Streamlit"],
+    code: "https://github.com/Kirthan156/uec100-streamlit",
+    body: `<p>A Streamlit app that classifies photos of Japanese dishes from the UEC-100 dataset (100 classes) with EfficientNet-B0.</p>
+      <ul><li>Shows predicted calories per 100 g with nutrient bar and pie charts.</li>
+      <li>Lists ingredients and step-by-step recipes for the predicted dish.</li>
+      <li>Runs on GPU when available and falls back to CPU.</li></ul>`,
+  },
+  {
+    id: "farm", no: "SPC-006", depth: "780 m", tags: ["genai", "web"], metric: "vision + Gemini",
+    title: "Farm Assist",
+    blurb: "Crop disease detection from photos with Cloud Vision and Gemini, plus market price insights.",
+    stack: ["Gemini API", "Cloud Vision", "Node.js", "Express"],
+    code: "https://github.com/Kirthan156/agriculture-app-backend",
+    body: `<p>A web platform for farmers built in May 2024.</p>
+      <ul><li>Identifies crop diseases from uploaded photos using Google Cloud Vision and Gemini.</li>
+      <li>Surfaces market price insights in the same query interface.</li>
+      <li>Node.js backend with authentication, admin routes and email notifications.</li></ul>`,
+  },
+  {
+    id: "sales", no: "SPC-007", depth: "910 m", tags: ["ml", "web"], metric: "3 models compared",
+    title: "Sales forecaster",
+    blurb: "Upload sales data and compare Linear Regression, Random Forest and XGBoost forecasts.",
+    stack: ["scikit-learn", "XGBoost", "pandas", "Flask"],
+    code: "https://github.com/Kirthan156/sales-predictor",
+    body: `<p>A Flask web app for sales forecasting.</p>
+      <ul><li>Upload a CSV of sales data and train Linear Regression, Random Forest and XGBoost regressors on it.</li>
+      <li>Compares the models on MAE, RMSE and R² and plots the forecasts.</li></ul>`,
+  },
+];
+
+const LABEL = { ml: "Machine learning", iot: "IoT & streaming", genai: "GenAI", web: "Full stack" };
+const grid = document.getElementById("specimens");
+grid.innerHTML = PROJECTS.map((p, i) => `
+  <article class="panel card specimen reveal ${i % 3 ? "d" + (i % 3) : ""}" id="${p.id}" data-tags="${p.tags.join(" ")}">
+    <div class="catalog"><span>${p.no}</span><span>${p.depth}</span></div>
+    <span class="metric">${p.metric}</span>
+    <h3 style="margin-top:16px">${p.title}</h3>
+    <p>${p.blurb}</p>
+    <div class="tag-row">${p.stack.map(s => `<span class="tag">${s}</span>`).join("")}</div>
+    <div class="foot">
+      <button class="more" data-id="${p.id}">Open specimen →</button>
+      ${p.code ? `<a href="${p.code}">Code</a>` : `<span class="badge-private">proprietary</span>`}
+    </div>
+  </article>`).join("");
+
+document.querySelectorAll(".filter").forEach(btn => btn.addEventListener("click", () => {
+  document.querySelectorAll(".filter").forEach(b => b.setAttribute("aria-pressed", b === btn));
+  const f = btn.dataset.filter;
+  document.querySelectorAll(".specimen").forEach(c => {
+    c.classList.toggle("hide", f !== "all" && !c.dataset.tags.split(" ").includes(f));
+  });
+}));
+
+const sheet = document.getElementById("sheet");
+const inner = sheet.querySelector(".inner");
+function open(id) {
+  const p = PROJECTS.find(x => x.id === id);
+  if (!p) return;
+  inner.innerHTML = `
+    <div class="catalog"><span>${p.no} · ${p.depth}</span><span>${p.tags.map(t => LABEL[t]).join(" · ")}</span></div>
+    <span class="metric">${p.metric}</span>
+    <h2 id="sheet-title">${p.title}</h2>
+    ${p.body}
+    <div class="tag-row" style="margin-top:22px">${p.stack.map(s => `<span class="tag">${s}</span>`).join("")}</div>
+    ${p.code ? `<div class="cta" style="margin-top:26px"><a class="btn primary" href="${p.code}">View code on GitHub</a></div>` : ""}`;
+  sheet.showModal();
+  inner.scrollTop = 0;
+  history.replaceState(null, "", "#" + id);
+}
+grid.addEventListener("click", e => { const b = e.target.closest("button.more"); if (b) open(b.dataset.id); });
+sheet.querySelector(".close").addEventListener("click", () => sheet.close());
+sheet.addEventListener("click", e => { if (e.target === sheet) sheet.close(); });
+sheet.addEventListener("close", () => history.replaceState(null, "", location.pathname));
+if (location.hash) open(location.hash.slice(1));
+</script>
+<script src="assets/js/ocean.js"></script>
+</body>
+</html>

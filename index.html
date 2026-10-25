@@ -2,290 +2,154 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kirthan Gada · ML & Data Engineering</title>
-<meta name="description" content="Kirthan Vivek Gada: final-year CSE (Data Science) student in Hyderabad building ML systems on real sensor data. Streaming pipelines, fault diagnosis, GenAI.">
+<meta name="description" content="Kirthan Vivek Gada builds machine learning systems for sensor data: streaming pipelines, fault diagnosis and GenAI. Final-year CSE (Data Science), Hyderabad, 2027.">
+<meta name="theme-color" content="#020c18">
 <meta property="og:title" content="Kirthan Gada · ML & Data Engineering">
-<meta property="og:description" content="ML systems on real sensor data: streaming pipelines, fault diagnosis, GenAI. 2027 graduate, Hyderabad.">
-<meta property="og:url" content="https://kirthan156.github.io">
+<meta property="og:description" content="Machine learning for data that never stops flowing. Streaming pipelines, fault diagnosis, GenAI.">
+<meta property="og:url" content="https://kirthan156.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23020c18'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%235eead4'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #fafaf8;
-  --surface: #ffffff;
-  --text: #16181d;
-  --muted: #5b616e;
-  --line: #e4e4df;
-  --accent: #0f766e;
-  --accent-soft: #e6f4f1;
-  --mono: "JetBrains Mono", ui-monospace, monospace;
-  --sans: "Inter", system-ui, -apple-system, sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0e1013;
-    --surface: #161a1f;
-    --text: #e8eaee;
-    --muted: #98a0ad;
-    --line: #262b33;
-    --accent: #2dd4bf;
-    --accent-soft: #12302c;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0e1013;
-  --surface: #161a1f;
-  --text: #e8eaee;
-  --muted: #98a0ad;
-  --line: #262b33;
-  --accent: #2dd4bf;
-  --accent-soft: #12302c;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font: 16px/1.6 var(--sans);
-  -webkit-font-smoothing: antialiased;
-}
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-.wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
-
-/* nav */
-nav {
-  position: sticky; top: 0; z-index: 10;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--line);
-}
-nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
-nav .brand { font: 500 14px var(--mono); color: var(--text); }
-nav ul { display: flex; gap: 20px; list-style: none; font-size: 14px; }
-nav ul a { color: var(--muted); }
-nav ul a:hover { color: var(--text); text-decoration: none; }
-#theme {
-  background: none; border: 1px solid var(--line); color: var(--muted);
-  border-radius: 6px; width: 32px; height: 32px; cursor: pointer; font-size: 14px;
-}
-@media (max-width: 600px) { nav ul { display: none; } }
-
-/* hero */
-header { padding: 88px 0 56px; }
-.tag { font: 500 13px var(--mono); color: var(--accent); margin-bottom: 16px; }
-h1 { font-size: clamp(32px, 6vw, 48px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 700; }
-.lede { font-size: 18px; color: var(--muted); max-width: 620px; margin-top: 20px; }
-.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-.btn {
-  display: inline-block; padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 500;
-  border: 1px solid var(--line); color: var(--text); background: var(--surface);
-}
-.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
-.btn:hover { text-decoration: none; filter: brightness(1.05); }
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 48px; }
-.stat { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--surface); }
-.stat b { display: block; font: 600 22px var(--mono); }
-.stat span { font-size: 13px; color: var(--muted); }
-
-/* sections */
-section { padding: 56px 0; border-top: 1px solid var(--line); }
-h2 { font: 500 13px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
-h3 { font-size: 18px; font-weight: 600; }
-.meta { font-size: 14px; color: var(--muted); }
-
-.job { display: grid; grid-template-columns: 160px 1fr; gap: 20px; margin-bottom: 36px; }
-.job:last-child { margin-bottom: 0; }
-.job .when { font: 13px var(--mono); color: var(--muted); padding-top: 3px; }
-.job ul { margin: 10px 0 0 18px; }
-.job li { margin-bottom: 6px; }
-@media (max-width: 600px) { .job { grid-template-columns: 1fr; gap: 4px; } }
-
-.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
-.card {
-  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.card.wide { grid-column: 1 / -1; }
-.card p { font-size: 15px; color: var(--muted); }
-.card .num { font: 500 13px var(--mono); color: var(--accent); background: var(--accent-soft); border-radius: 6px; padding: 3px 8px; align-self: flex-start; }
-.card .links { margin-top: auto; padding-top: 6px; font-size: 14px; display: flex; gap: 16px; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; }
-pre.flow {
-  font: 12.5px/1.5 var(--mono); color: var(--muted); background: var(--bg);
-  border: 1px solid var(--line); border-radius: 8px; padding: 12px; overflow-x: auto; white-space: pre;
-}
-
-.skills { display: grid; grid-template-columns: 180px 1fr; gap: 14px 20px; }
-.skills dt { font-size: 14px; font-weight: 600; }
-@media (max-width: 600px) { .skills { grid-template-columns: 1fr; gap: 4px; } .skills dd { margin-bottom: 12px; } }
-
-footer { border-top: 1px solid var(--line); padding: 40px 0 56px; font-size: 14px; color: var(--muted); }
-footer .row { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 12px; }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/ocean.css">
 </head>
-<body>
+<body data-depth-start="0" data-depth-end="4000">
+<canvas id="ocean" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
 
-<nav>
-  <div class="wrap">
-    <a class="brand" href="#">kirthan.gada</a>
-    <ul>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <button id="theme" aria-label="Toggle colour theme">◐</button>
-  </div>
-</nav>
+<header class="nav">
+  <a class="brand" href="./"><span class="dot"></span>kirthan.gada</a>
+  <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span></button>
+  <ul>
+    <li><a href="./" aria-current="page">Dive<small>0–4000 m</small></a></li>
+    <li><a href="about.html">About<small>0–200 m</small></a></li>
+    <li><a href="projects.html">Projects<small>200–1000 m</small></a></li>
+    <li><a href="research.html">Research<small>1000–4000 m</small></a></li>
+  </ul>
+</header>
 
-<main class="wrap">
-  <header>
-    <p class="tag">// ML · data engineering · GenAI</p>
-    <h1>Kirthan Vivek Gada</h1>
-    <p class="lede">
-      I build machine learning systems that run on real sensor data: streaming pipelines,
-      fault diagnosis models, and the dashboards on top of them. Final-year B.Tech in
-      Computer Science (Data Science) at VNR VJIET, Hyderabad, graduating 2027.
-    </p>
-    <div class="cta">
-      <a class="btn primary" href="mailto:kirthan156@gmail.com">Email me</a>
-      <a class="btn" href="https://github.com/Kirthan156">GitHub</a>
-      <a class="btn" href="https://linkedin.com/in/kirthan-vivek-gada-607110371">LinkedIn</a>
-    </div>
-    <div class="stats">
-      <div class="stat"><b>2</b><span>internships before final year</span></div>
-      <div class="stat"><b>2.1M</b><span>sensor samples in my research</span></div>
-      <div class="stat"><b>87%</b><span>top-1 on Food-101</span></div>
-      <div class="stat"><b>8.25</b><span>CGPA / 10</span></div>
-    </div>
-  </header>
-
-  <section id="experience">
-    <h2>Experience</h2>
-
-    <div class="job">
-      <div class="when">Jun – Aug 2025</div>
-      <div>
-        <h3>Software Development Intern · Artha Solutions</h3>
-        <p class="meta">Hyderabad</p>
-        <ul>
-          <li>Built a digital twin of an industrial cement roller press in Unity 3D from CAD assets, driven by live sensor data.</li>
-          <li>Built an edge-to-cloud streaming pipeline (OPC-UA → Kafka → InfluxDB) for real-time monitoring and visualisation.</li>
-          <li>Trained XGBoost and Random Forest models on press sensor data for prediction and fault classification, with genetic-algorithm feature selection.</li>
-          <li>Contributed to a LangChain / LangGraph RAG assistant for query routing and SQL generation.</li>
-        </ul>
+<main>
+  <!-- 0 m -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="coords reveal"><span><b>SURFACE</b> · 0 m</span><span>17.38° N, 78.49° E</span><span>Hyderabad, India</span></p>
+      <h1 class="display reveal d1">Kirthan<br><em>Vivek Gada</em></h1>
+      <p class="lede reveal d2">I build machine learning systems for data that never stops flowing: industrial sensor streams, the pipelines that carry them, and the models that listen for something going wrong.</p>
+      <div class="cta reveal d3">
+        <a class="btn primary" href="#twilight">Begin the dive
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v12M3 9l5 5 5-5"/></svg></a>
+        <a class="btn" href="projects.html">See projects</a>
       </div>
     </div>
+    <div class="scroll-cue" aria-hidden="true">scroll to descend<i></i></div>
+    <div class="surface" aria-hidden="true">
+      <svg viewBox="0 0 2400 60" preserveAspectRatio="none"><path d="M0 30 Q150 10 300 30 T600 30 T900 30 T1200 30 T1500 30 T1800 30 T2100 30 T2400 30" fill="none" stroke="#5eead4" stroke-width="1" opacity=".7"/><path d="M0 40 Q150 25 300 40 T600 40 T900 40 T1200 40 T1500 40 T1800 40 T2100 40 T2400 40" fill="none" stroke="#a5b4fc" stroke-width=".8" opacity=".4"/></svg>
+    </div>
+  </section>
 
-    <div class="job">
-      <div class="when">Apr – May 2025</div>
-      <div>
-        <h3>Data Science Intern · Prasunet</h3>
-        <p class="meta">Tech Bharat Global Impact program</p>
-        <ul>
-          <li>Fine-tuned ConvNeXt-Tiny (PyTorch) on Food-101 (101 classes, 101k images) to 87% top-1 accuracy on a held-out test split.</li>
-          <li>Mapped predicted dishes to calories and macronutrients, served through a Flask REST API and a React frontend.</li>
-        </ul>
+  <!-- 200 m -->
+  <section id="twilight">
+    <div class="wrap">
+      <p class="zone-label reveal">200 m · Twilight zone</p>
+      <h2 class="title reveal d1">Where the signal is <em>faint</em>, I build things that hear it.</h2>
+      <div class="grid three" style="margin-top:56px">
+        <article class="panel card reveal">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 12h3l2-6 4 12 2-6h7"/></svg></div>
+          <h3>Streaming data</h3>
+          <p>Edge-to-cloud pipelines that move live industrial telemetry into storage and dashboards in real time.</p>
+          <p class="flow">OPC-UA → Kafka → InfluxDB</p>
+        </article>
+        <article class="panel card reveal d1">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7" opacity=".6"/><circle cx="12" cy="12" r="10.5" opacity=".3"/></svg></div>
+          <h3>ML on sensor data</h3>
+          <p>Fault diagnosis and anomaly detection for motors and machines, with feature selection that keeps models small.</p>
+          <p class="flow">XGBoost · LightGBM · PyTorch</p>
+        </article>
+        <article class="panel card reveal d2">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg></div>
+          <h3>GenAI</h3>
+          <p>Retrieval-augmented assistants with LangGraph that route questions and write SQL over operational data.</p>
+          <p class="flow">LangChain · LangGraph · RAG</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section id="research">
-    <h2>Research</h2>
-    <div class="cards">
-      <article class="card wide">
-        <span class="num">macro F1 0.9998 · 82.7% fewer features</span>
-        <h3>Metaheuristic-Based Feature Selection for Induction Motor Fault Diagnosis</h3>
-        <p>
-          Compared four metaheuristic optimisers (WOA, HHO, EO, MVO) paired with three gradient-boosting
-          classifiers on 2.1M sensor samples across 5 fault classes of a 110 kW motor. Cut features from
-          26 to as few as 3 while keeping near-perfect accuracy; best model was EO + XGBoost. The search
-          ran on a stratified 5% subset to save compute. Accepted at an international conference.
-        </p>
-        <div class="chips"><span class="chip">Python</span><span class="chip">XGBoost</span><span class="chip">LightGBM</span><span class="chip">CatBoost</span></div>
-        <div class="links"><a href="https://github.com/Kirthan156/induction-motor-fault-diagnosis">Paper and code →</a></div>
+  <!-- 1000 m -->
+  <section id="midnight">
+    <div class="wrap">
+      <p class="zone-label reveal">1,000 m · Midnight zone</p>
+      <h2 class="title reveal d1">Selected <em>work</em></h2>
+
+      <article class="panel card feature reveal">
+        <div>
+          <div class="catalog"><span>RESEARCH · 01</span><span>accepted, international conference</span></div>
+          <h3>Metaheuristic feature selection for induction motor fault diagnosis</h3>
+          <p>Four optimisers × three gradient-boosting classifiers on 2.1M sensor samples from a 110 kW motor. Cut features from 26 to as few as 3 with almost no loss in accuracy.</p>
+          <div class="links"><a href="research.html">Explore the results →</a></div>
+        </div>
+        <div class="num"><span data-count="82.7" data-suffix="%">0%</span><small>fewer features, macro F1 0.9998</small></div>
+      </article>
+
+      <article class="panel card feature reveal">
+        <div>
+          <div class="catalog"><span>PROJECT · 02</span><span>IoT · anomaly detection</span></div>
+          <h3>Motor predictive maintenance</h3>
+          <p>An ESP32-S3 node streams vibration, current, speed, temperature and sound over MQTT. A Python service scores every reading for anomalies and pushes it to a live dashboard on PC or phone.</p>
+          <div class="links"><a href="projects.html#motor">Details →</a><a href="https://github.com/Kirthan156/Major-motor-predictive-maintainence">Code</a></div>
+        </div>
+        <div class="num"><span data-count="2" data-suffix=" s">0 s</span><small>between live sensor readings</small></div>
+      </article>
+
+      <article class="panel card feature reveal">
+        <div>
+          <div class="catalog"><span>PROJECT · 03</span><span>computer vision</span></div>
+          <h3>AI food calorie estimator</h3>
+          <p>ConvNeXt-Tiny fine-tuned on Food-101 to recognise 101 dishes from a photo, then map them to calories and macros. Flask API with a React front end.</p>
+          <div class="links"><a href="projects.html#calai">Details →</a><a href="https://github.com/Kirthan156/Cal_AI">Code</a></div>
+        </div>
+        <div class="num"><span data-count="87" data-suffix="%">0%</span><small>top-1 accuracy, 101 classes</small></div>
       </article>
     </div>
   </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="cards">
-      <article class="card wide">
-        <span class="num">live anomaly detection</span>
-        <h3>Motor Predictive Maintenance</h3>
-        <p>
-          Live condition monitoring for a small AC motor. An ESP32-S3 node streams vibration, current, speed,
-          temperature and sound every 2 s over MQTT. A Python service extracts features, scores each reading
-          with an anomaly model, and pushes it to a live web dashboard that works on PC or phone.
-          A built-in dummy motor lets you inject faults for demos.
-        </p>
-        <pre class="flow">ESP32-S3 + sensors ──MQTT──▶ Mosquitto ──▶ server.py ──WebSocket──▶ browser
-                                       └──▶ recorder ──▶ train ──▶ models/</pre>
-        <div class="chips"><span class="chip">ESP32</span><span class="chip">MQTT</span><span class="chip">Python</span><span class="chip">WebSocket</span><span class="chip">scikit-learn</span></div>
-        <div class="links"><a href="https://github.com/Kirthan156/Major-motor-predictive-maintainence">Code →</a></div>
-      </article>
-
-      <article class="card">
-        <span class="num">87% top-1</span>
-        <h3>AI Food Calorie Estimator</h3>
-        <p>Photo in, dish plus calories, protein, carbs and fat out. ConvNeXt-Tiny fine-tuned on Food-101, Flask API, React UI.</p>
-        <div class="chips"><span class="chip">PyTorch</span><span class="chip">Flask</span><span class="chip">React</span></div>
-        <div class="links"><a href="https://github.com/Kirthan156/Cal_AI">Code →</a></div>
-      </article>
-
-      <article class="card">
-        <span class="num">GenAI + vision</span>
-        <h3>Farm Assist</h3>
-        <p>Web platform for farmers that identifies crop diseases from photos (Cloud Vision + Gemini) and surfaces market price insights in one query interface.</p>
-        <div class="chips"><span class="chip">Gemini API</span><span class="chip">Cloud Vision</span><span class="chip">Node.js</span></div>
-        <div class="links"><a href="https://github.com/Kirthan156/agriculture-app-backend">Code →</a></div>
-      </article>
+  <!-- 2500 m -->
+  <section>
+    <div class="wrap">
+      <p class="zone-label reveal">2,500 m · By the numbers</p>
+      <div class="stats reveal d1">
+        <div class="stat"><b data-count="2.1" data-suffix="M">0</b><span>sensor samples analysed in my research</span></div>
+        <div class="stat"><b data-count="0.9998">0</b><span>macro F1 after feature selection</span></div>
+        <div class="stat"><b data-count="2">0</b><span>internships before final year</span></div>
+        <div class="stat"><b data-count="8.25">0</b><span>CGPA out of 10</span></div>
+      </div>
     </div>
   </section>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <dl class="skills">
-      <dt>Languages</dt><dd>Python, SQL, Java, C++, JavaScript</dd>
-      <dt>ML &amp; data</dt><dd>PyTorch, XGBoost, LightGBM, CatBoost, scikit-learn, pandas, NumPy</dd>
-      <dt>GenAI</dt><dd>LangChain, LangGraph, RAG, Google Gemini API</dd>
-      <dt>Streaming &amp; IoT</dt><dd>Kafka, InfluxDB, OPC-UA, MQTT, ESP32</dd>
-      <dt>Web &amp; deployment</dt><dd>Flask, React, REST APIs, Streamlit, Render, Git</dd>
-      <dt>Other</dt><dd>Unity 3D, Tableau</dd>
-    </dl>
+  <!-- 4000 m -->
+  <section class="abyss">
+    <div class="wrap">
+      <p class="zone-label reveal">4,000 m · Abyssal zone</p>
+      <h2 class="title reveal d1">You've reached <em>the bottom.</em></h2>
+      <p class="lede reveal d2">I'm open to AI, ML and data engineering roles and 2027 internships in Hyderabad, Bangalore or remote. Send a ping.</p>
+      <div class="cta reveal d3">
+        <a class="btn primary" href="mailto:kirthan156@gmail.com">kirthan156@gmail.com</a>
+        <a class="btn" href="https://linkedin.com/in/kirthan-vivek-gada-607110371">LinkedIn</a>
+        <a class="btn" href="https://github.com/Kirthan156">GitHub</a>
+      </div>
+    </div>
   </section>
 </main>
 
-<footer id="contact">
+<footer>
   <div class="wrap">
-    <p>Open to AI / ML / data engineering roles and 2027 internships in Hyderabad, Bangalore or remote.</p>
-    <div class="row">
-      <a href="mailto:kirthan156@gmail.com">kirthan156@gmail.com</a>
-      <a href="https://linkedin.com/in/kirthan-vivek-gada-607110371">LinkedIn</a>
-      <a href="https://github.com/Kirthan156">GitHub</a>
-    </div>
+    <span>© 2026 Kirthan Vivek Gada</span>
+    <span>Tap or click anywhere to send a sonar ping.</span>
   </div>
 </footer>
 
-<script>
-(function () {
-  var root = document.documentElement, btn = document.getElementById('theme');
-  try { var saved = localStorage.getItem('theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
-  btn.addEventListener('click', function () {
-    var dark = root.dataset.theme
-      ? root.dataset.theme === 'dark'
-      : matchMedia('(prefers-color-scheme: dark)').matches;
-    root.dataset.theme = dark ? 'light' : 'dark';
-    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
-  });
-})();
-</script>
+<script src="assets/js/ocean.js"></script>
 </body>
 </html>
